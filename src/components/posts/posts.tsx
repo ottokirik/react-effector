@@ -2,6 +2,7 @@ import { Box, Center, Heading } from "@chakra-ui/react";
 import styled from "@emotion/styled";
 import { useList } from "effector-react";
 import { Link } from "react-router-dom";
+import useAbortController from "../../hooks/use-abort-controller";
 import { $posts, PostsGate } from "../../store/post.store";
 
 const StyledLink = styled(Link)({
@@ -22,17 +23,21 @@ const StyledHeading = styled(Heading)({
   },
 });
 
-export const Posts = () => (
-  <>
-    <PostsGate />
-    <Center w="80vw">
-      <Box>
-        {useList($posts, ({ title, id }) => (
-          <StyledHeading size="lg" mb={4}>
-            <StyledLink to={`/posts/${id}`}>{title}</StyledLink>
-          </StyledHeading>
-        ))}
-      </Box>
-    </Center>
-  </>
-);
+export const Posts = () => {
+  useAbortController();
+
+  return (
+    <>
+      <PostsGate />
+      <Center w="80vw">
+        <Box>
+          {useList($posts, ({ title, id }) => (
+            <StyledHeading size="lg" mb={4}>
+              <StyledLink to={`/posts/${id}`}>{title}</StyledLink>
+            </StyledHeading>
+          ))}
+        </Box>
+      </Center>
+    </>
+  );
+};

@@ -1,5 +1,6 @@
 import { Box, Container, Text } from "@chakra-ui/react";
 import { createComponent, useList } from "effector-react";
+import useAbortController from "../../hooks/use-abort-controller";
 import { $comments, CommentsGate } from "../../store/post.store";
 
 const CommentsList = createComponent($comments, (_, state) => {
@@ -20,9 +21,13 @@ const CommentsList = createComponent($comments, (_, state) => {
   ));
 });
 
-export const Comments = ({ id }: { id: number }) => (
-  <>
-    <CommentsGate id={id} />
-    <CommentsList />
-  </>
-);
+export const Comments = ({ id }: { id: number }) => {
+  useAbortController();
+
+  return (
+    <>
+      <CommentsGate id={id} />
+      <CommentsList />
+    </>
+  );
+};
