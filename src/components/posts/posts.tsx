@@ -1,4 +1,4 @@
-import { Box, Center, Heading } from "@chakra-ui/react";
+import { Box, Container, Heading } from "@chakra-ui/react";
 import styled from "@emotion/styled";
 import { useList } from "effector-react";
 import { Link } from "react-router-dom";
@@ -29,7 +29,7 @@ export const Posts = () => {
   return (
     <>
       <PostsGate />
-      <Center w="80vw">
+      <Container w="100%" centerContent>
         <Box>
           {useList($posts, ({ title, id }) => (
             <StyledHeading size="lg" mb={4}>
@@ -37,7 +37,7 @@ export const Posts = () => {
             </StyledHeading>
           ))}
         </Box>
-      </Center>
+      </Container>
     </>
   );
 };
